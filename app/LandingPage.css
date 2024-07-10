@@ -1,0 +1,24 @@
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+.typewriter::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+}
