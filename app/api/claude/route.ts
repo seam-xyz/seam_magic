@@ -38,7 +38,10 @@ export type BlockModel = {
   data: { [key: string]: string };
 };
 
+Remember, you have full creative freedom to imagine a captivating application that fits the name provided.
+
 Remember to include imports, like useState!!
+Don't include any local files.
 
 Don't write any explanation, just write code. Return an error message for any prompts that are off-topic.
   `

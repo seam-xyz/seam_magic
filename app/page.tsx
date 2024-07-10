@@ -101,7 +101,8 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
           }}
           options={{
             autoReload: true,
-            activeFile: "/NewApp.tsx"
+            activeFile: "/NewApp.tsx",
+            externalResources: ["https://cdn.tailwindcss.com"]
           }}
           style={{ flex: 1 }}
         >
