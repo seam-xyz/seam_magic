@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { App } from './MiniappHarness/App';
+import logo from './assets/dark_single_logo.png';
 import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout } from "@codesandbox/sandpack-react";
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
     setBlockBuilding(true);
     const response = await fetch(`/api/claude?userInput=${encodeURIComponent(input)}`);
     const data = await response.json();
-    
+
     setResponse(data.content[0].text);
   };
 
@@ -44,26 +45,31 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
     );
   }
 
-  if (response) {
+  if (response !== null) {
     return (
-      <SandpackProvider
-        template="react"
-        theme="auto"
-        files={{
-          "/NewApp.tsx": response!,
-          "/App.js": App,
-        }}
-        options={{
-          autoReload: true,
-          activeFile: "/NewApp.tsx"
-        }}
-        style={{ width: '100%', height: '100%' }}
-      >
-        <SandpackLayout style={{ display: "flex", width: '100%', height: '100vh' }} >
-          <SandpackCodeEditor showLineNumbers showTabs={false} style={{ display: "flex", width: '100%', height: '100vh' }} />
-          <SandpackPreview style={{ display: "flex", width: '100%', height: '100vh' }} />
-        </SandpackLayout>
-      </SandpackProvider>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '64px', padding: 4 }}>
+          <img src={logo.src} alt="Logo" style={{height: 48, width: 96}} />
+        </div>
+        <SandpackProvider
+          template="react"
+          theme="auto"
+          files={{
+            "/NewApp.tsx": response!,
+            "/App.js": App,
+          }}
+          options={{
+            autoReload: true,
+            activeFile: "/NewApp.tsx"
+          }}
+          style={{ flex: 1 }}
+        >
+          <SandpackLayout style={{ display: "flex", height: '100%' }}>
+            <SandpackCodeEditor showLineNumbers showTabs={false} style={{ height: "100%" }} />
+            <SandpackPreview style={{ height: "100%" }} />
+          </SandpackLayout>
+        </SandpackProvider>
+      </div>
     );
   }
 
