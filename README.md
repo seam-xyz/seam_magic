@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Seam AI Miniapp Builder
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+<img src="https://img.shields.io/github/commit-activity/m/seam-xyz/Block-SDK" alt="">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img src="https://img.shields.io/github/stars/seam-xyz/Block-SDK?style=social" alt="">
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<figure><img width="2005" alt="Beat Miniapp" src="https://github.com/seam-xyz/Miniapp-Builder/assets/7350670/1929270a-3b8e-46b2-ab60-824b248b9bcb"><figcaption><p>Miniapps are the future of sharing on social networks.</p></figcaption></figure>
 
-## Learn More
+[Seam](https://www.seam.so) is a social network that allows users to build and sell open-source miniapps. It provides a platform for online creatives to showcase their work, curate inspiration, and collaborate with peers.
 
-To learn more about Next.js, take a look at the following resources:
+This repo uses Claude 3.5 to automatically write miniapps for you, just from a single line of text!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The full documentation lives at [docs.getseam.xyz](https://docs.getseam.xyz/miniapp-creation/rendering-a-miniapp).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### What are miniapps?
 
-## Deploy on Vercel
+The core piece of sharing on Seam is the **miniapp**. Miniapps are tiny playgrounds, allowing you to create content. When you’re done, you make a post. For example, the Pixel Art miniapp allows you to become a pixel artist, and then share the final masterpiece as a post.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<figure><img width="1080" alt="BookShelf" src="https://github.com/seam-xyz/Miniapp-Builder/assets/7350670/9ca67061-35ac-4a0b-a6a2-bebd5c66930f"><figcaption><p>Miniapps have a creation experience, and a consumption experience in the feed.</p></figcaption></figure>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**What happens when you make a miniapp on Seam?**
+
+* Accepted miniapps are live on seam.so and the Seam iOS app. You'll have your code in the appstore!
+* Anyone else on Seam can use your miniapp to make posts.
+  * Eventually, you'll be able to earn Seam Points when other users unlock your miniapp.
+* You'll learn to code Javascript and React, one of the most used languages on the Internet.

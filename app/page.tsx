@@ -35,7 +35,7 @@ interface AppLoaderProps {
 }
 
 const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) => {
-  if (true) {
+  if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center">
         <div
