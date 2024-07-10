@@ -1,33 +1,56 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import logo from './assets/dark_single_logo.png';
+import appstore from './assets/appstore.svg';
 
-export const LandingPageComponent = ({input, setInput, onSubmit}: {input: string, setInput: (input: string) => void, onSubmit: (event: FormEvent<HTMLFormElement>) => void}) => {
+export const LandingPageComponent = ({ onSubmit }: { onSubmit: (userInput: string) => void }) => {
+  const [input, setInput] = useState('');
   return (
-  <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '64px', padding: 4 }}>
-      <img src={logo.src} alt="Logo" style={{ height: 48, width: 96 }} />
+    <div className="flex flex-col w-full h-full">
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '64px', padding: 4 }}>
+        <img src={logo.src} alt="Logo" style={{ height: 48, width: 96 }} />
+      </div>
+      <div className="bg-red">
+
+      </div>
+      <div className="flex flex-col items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-2">Welcome to the Seam Mini app Ai Builder</h1>
+          <p className="text-center text-gray-600 mb-4">
+            Create & Discover Miniapps For builders, designers, and curators
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-semibold mb-2 block">
+            What miniapp do you want to create today?
+          </h2>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="A watercolor mini app..."
+              value={input}
+              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-blue-500"
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </div>
+          <button onClick={() => onSubmit(input)} type="submit"
+            className="mt-4 w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            Magic
+          </button>
+        </div>
+
+        <div className='flex flex-col items-center'>
+          <p className="mt-4 text-gray-500">
+            Learn more about miniapps at <a href="https://getseam.xyz" className="text-purple-600">getseam.xyz</a>
+          </p>
+          <button className="mt-2">
+            <a href="https://apps.apple.com/us/app/seam-social/id6473547569">
+              <img src={appstore.src} alt="Download on the App Store" />
+            </a>
+          </button>
+        </div>
+
+      </div>
     </div>
-    <div className="flex-1 flex flex-col items-center justify-center p-24">
-      <h1 className="mb-4 text-2xl font-bold">What miniapp do you want to create today?</h1>
-      <form className="flex flex-col items-center" onSubmit={onSubmit}>
-        <input
-          type="text"
-          className="mb-4 p-2 border border-gray-300 rounded"
-          placeholder="Enter miniapp name"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <p> powered by claude </p>
-        <button type="submit" className="p-2 bg-blue-500 text-white rounded">Magic</button>
-      </form>
-    </div>
-    <div className="flex-1 overflow-auto bg-red">
-      {/* Replace this with your image feed */}
-      {/* <img src="image1.jpg" alt="Image 1" />
-        <img src="image2.jpg" alt="Image 2" />
-        <img src="image3.jpg" alt="Image 3" /> */}
-      {/* ... */}
-    </div>
-  </div>
   );
 }

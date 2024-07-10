@@ -7,14 +7,12 @@ import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout }
 import { LandingPageComponent } from './LandingPageComponent';
 
 export default function Home() {
-  const [input, setInput] = useState('');
   const [blockBuilding, setBlockBuilding] = useState(false);
   const [response, setResponse] = useState(null);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (userInput: string) => {
     setBlockBuilding(true);
-    const response = await fetch(`/api/claude?userInput=${encodeURIComponent(input)}`);
+    const response = await fetch(`/api/claude?userInput=${encodeURIComponent(userInput)}`);
     const data = await response.json();
 
     setResponse(data.content[0].text);
@@ -24,7 +22,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <AppLoader isLoading={isLoading} response={response} onSubmit={handleSubmit} input={input} setInput={setInput} />
+      <AppLoader isLoading={isLoading} response={response} onSubmit={handleSubmit} />
     </div>
   );
 }
@@ -32,12 +30,10 @@ export default function Home() {
 interface AppLoaderProps {
   isLoading: boolean;
   response: any;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  input: string;
-  setInput: (input: string) => void;
+  onSubmit: (userInput: string) => void;
 }
 
-const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, input, setInput }) => {
+const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) => {
   if (isLoading) {
     return (
       <div className="flex-1 flex items-center justify-center">
@@ -86,6 +82,6 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
   }
 
   return (
-    LandingPageComponent({input, setInput, onSubmit})
+    <LandingPageComponent onSubmit={onSubmit} />
   );
 };
