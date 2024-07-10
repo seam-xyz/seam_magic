@@ -1,22 +1,12 @@
 # Seam AI Miniapp Builder
 
-<div align="center">
-
-<img src="https://img.shields.io/github/commit-activity/m/seam-xyz/Block-SDK" alt="">
-
- 
-
-<img src="https://img.shields.io/github/stars/seam-xyz/Block-SDK?style=social" alt="">
-
-</div>
-
 <figure><img width="2005" alt="Beat Miniapp" src="https://github.com/seam-xyz/Miniapp-Builder/assets/7350670/1929270a-3b8e-46b2-ab60-824b248b9bcb"><figcaption><p>Miniapps are the future of sharing on social networks.</p></figcaption></figure>
 
 [Seam](https://www.seam.so) is a social network that allows users to build and sell open-source miniapps. It provides a platform for online creatives to showcase their work, curate inspiration, and collaborate with peers.
 
 This repo uses Claude 3.5 to automatically write miniapps for you, just from a single line of text!
 
-The full documentation lives at [docs.getseam.xyz](https://docs.getseam.xyz/miniapp-creation/rendering-a-miniapp).
+The Claude integration is at `app/api/claude` as Vercel edge function.
 
 #### What are miniapps?
 
