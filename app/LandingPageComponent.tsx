@@ -70,7 +70,7 @@ export const LandingPageComponent = ({ onSubmit }: { onSubmit: (userInput: strin
         </div>
         <div className="flex flex-col w-[40%] h-full rounded-lg border p-4 mr-4 items-center">
           <h1 className="text-xl font-bold mb-4"> Preview </h1>
-          <h2 className="mb-2"> Seam is a social network where the posts are made from user created miniapps. </h2>
+          <h2 className="mb-2"> <a href="https://www.seam.so" className="text-blue-400">Seam</a> is a social network where the posts are made from user created miniapps. </h2>
           <iframe src={"/example_feed.html"} className="w-full h-full bg-white" />
         </div>
       </div>

@@ -104,6 +104,11 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
             activeFile: "/NewApp.tsx",
             externalResources: ["https://cdn.tailwindcss.com"]
           }}
+          customSetup={{
+            dependencies: {
+              "p5": "latest"
+            }
+          }}
           style={{ flex: 1 }}
         >
           <SandpackLayout style={{ display: "flex", height: '100%' }}>

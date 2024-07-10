@@ -16,6 +16,7 @@ export async function GET(request: Request) {
 
 All miniapps need to use the following template, and it MUST BE CALLED NewApp:
 
+"
 export default class NewApp {
   render() {
     return (
@@ -29,19 +30,117 @@ export default class NewApp {
     )
   }
 }
+"
+
+For example, here is a miniapp that allows a user to post a text of their thoughts:
+"
+import { useState } from "react"
+
+
+const ThoughtPreview: React.FC<{ content: string, textColor: string, bgColor: string }> = ({ content, textColor, bgColor }) => {
+  const [fontLoaded, setFontLoaded] = useState<boolean>(false);
+  return (
+    <p>{content}</p>
+  )
+}
+
+interface ThoughtEditorProps {
+  model: BlockModel;
+  done: (data: BlockModel) => void;
+}
+
+const ThoughtEditor: React.FC<ThoughtEditorProps> = ({ model, done }) => {
+  const [thought, setThought] = useState('');
+  const [bgColor, setBgColor] = useState('#ffffff');
+  const [textColor, setTextColor] = useState('#000000');
+
+  const handleSubmit = () => {
+    done({
+      ...model,
+      data: {
+        thought,
+        bgColor,
+        textColor
+      }
+    });
+  };
+
+  return (
+    <>
+      <h2 className="text-xl mb-4">Just A Thought</h2>
+      <textarea
+        value={thought}
+        onChange={(e) => setThought(e.target.value)}
+        maxLength={120}
+        className="w-full p-2 mb-4 border rounded"
+        placeholder="Enter your thought (max 120 characters)"
+      />
+      <div className="mb-4">
+        <label className="block mb-2">Background Color:</label>
+        <input
+          type="color"
+          value={bgColor}
+          onChange={(e) => setBgColor(e.target.value)}
+          className="w-full"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block mb-2">Text Color:</label>
+        <input
+          type="color"
+          value={textColor}
+          onChange={(e) => setTextColor(e.target.value)}
+          className="w-full"
+        />
+      </div>
+      <div className="mb-4">
+        <p>Preview:<br/></p>
+        <div className="inline-block">
+          <ThoughtPreview content={thought} textColor={textColor} bgColor={bgColor} />
+        </div>
+      </div>
+      <button
+        onClick={handleSubmit}
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Post Thought
+      </button>
+    </>
+  )
+}
+
+export default class JustAThoughtBlock {
+  render() {
+    const { bgColor, textColor, thought } = this.model.data;
+    return (
+      <div className="inline-block">
+        <ThoughtPreview content={thought} bgColor={bgColor} textColor={textColor} />
+      </div>
+    );
+  }
+
+  renderEditModal(done: (data: BlockModel) => void) {
+    return (
+      <ThoughtEditor model={this.model} done={done} />
+    )
+  }
+}
+"
 
 The renderEditModal is where the user creates their post. The render function is how a post will look in the feed.
-
 The BlockModel data only accepts strings.
+Make the programs fill the entire screen.
 
 export type BlockModel = {
   data: { [key: string]: string };
 };
 
-Remember, you have full creative freedom to imagine a captivating application that fits the name provided.
+You can use and import only the following if you need them:
+"p5": "latest",
 
 Remember to include imports, like useState!!
 Don't include any local files.
+Don't add any new libraries.
 
 Don't write any explanation, just write code. Return an error message for any prompts that are off-topic.
   `
