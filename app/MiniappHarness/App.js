@@ -66,27 +66,9 @@ export default function App() {
   };
 
   return (
-    <div style={{
-      width: '375px',
-      height: '667px',
-      border: '16px solid black',
-      borderTopWidth: '60px',
-      borderBottomWidth: '60px',
-      borderRadius: '36px',
-      backgroundColor: 'white',
-      boxShadow: '0 0 10px 5px gray',
-      margin: 'auto',
-      overflow: 'hidden',
-      position: 'relative',
-    }}>
-      <div style={{
-        width: '100%',
-        height: '100%',
-        overflow: 'auto',
-      }}>
-        {renderContent()}
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', borderRadius: '0.5rem', border: '1px solid rgba(0, 0, 0, 0.05)', margin: '1rem', padding: '1rem', alignItems: 'center' }}>
+      {renderContent()}
     </div>
   )
 }
-`;
+`

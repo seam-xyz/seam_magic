@@ -114,7 +114,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
                   Ship to Seam
                 </button>
               }
-              style={{ height: "100vh" }}
+              style={{ height: `calc(100vh - 64px)` }}
             />
           </SandpackLayout>
         </SandpackProvider>
