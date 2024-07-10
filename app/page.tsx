@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { App } from './MiniappHarness/App';
 import logo from './assets/dark_single_logo.png';
 import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout } from "@codesandbox/sandpack-react";
+import { LandingPageComponent } from './LandingPageComponent';
 
 export default function Home() {
   const [input, setInput] = useState('');
@@ -49,7 +50,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
     return (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '64px', padding: 4 }}>
-          <img src={logo.src} alt="Logo" style={{height: 48, width: 96}} />
+          <img src={logo.src} alt="Logo" style={{ height: 48, width: 96 }} />
         </div>
         <SandpackProvider
           template="react"
@@ -69,13 +70,14 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
         >
           <SandpackLayout style={{ display: "flex", height: '100%' }}>
             <SandpackCodeEditor showLineNumbers showTabs={false} style={{ height: "100%" }} />
-            <SandpackPreview 
-            showOpenInCodeSandbox={false} 
-            actionsChildren={
-              <button onClick={() => window.open("https://github.com/seam-xyz/Miniapp-Builder")}>
-                Ship to Seam
-              </button>
-            }
+            <SandpackPreview
+              showOpenInCodeSandbox={false}
+              actionsChildren={
+                <button onClick={() => window.open("https://github.com/seam-xyz/Miniapp-Builder")}>
+                  Ship to Seam
+                </button>
+              }
+              style={{ height: "100%" }}
             />
           </SandpackLayout>
         </SandpackProvider>
@@ -84,28 +86,6 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
   }
 
   return (
-    <div className="flex h-screen">
-      <div className="flex-1 flex flex-col items-center justify-center p-24">
-        <h1 className="mb-4 text-2xl font-bold">What miniapp do you want to create today?</h1>
-        <form className="flex flex-col items-center" onSubmit={onSubmit}>
-          <input
-            type="text"
-            className="mb-4 p-2 border border-gray-300 rounded"
-            placeholder="Enter miniapp name"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <p> powered by claude </p>
-          <button type="submit" className="p-2 bg-blue-500 text-white rounded">Magic</button>
-        </form>
-      </div>
-      <div className="flex-1 overflow-auto bg-red">
-        {/* Replace this with your image feed */}
-        {/* <img src="image1.jpg" alt="Image 1" />
-        <img src="image2.jpg" alt="Image 2" />
-        <img src="image3.jpg" alt="Image 3" /> */}
-        {/* ... */}
-      </div>
-    </div>
+    LandingPageComponent({input, setInput, onSubmit})
   );
 };
