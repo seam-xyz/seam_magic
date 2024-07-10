@@ -99,9 +99,6 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
             "/NewApp.tsx": response!,
             "/App.js": App,
           }}
-          dependencies={{
-
-          }}
           options={{
             autoReload: true,
             activeFile: "/NewApp.tsx"
