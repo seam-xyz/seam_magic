@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { App } from './MiniappHarness/App';
 import logo from './assets/dark_single_logo.png';
+import asciiStar from './assets/ascii-seam-logo-2.svg';
 import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout } from "@codesandbox/sandpack-react";
 import { LandingPageComponent } from './LandingPageComponent';
 
@@ -34,10 +35,53 @@ interface AppLoaderProps {
 }
 
 const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) => {
-  if (isLoading) {
+  if (true) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <div>Loading...</div>
+      <div className="flex flex-col items-center justify-center">
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <style>
+            {`
+          @keyframes rotation {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(359deg);
+            }
+          }
+          
+          @keyframes pulse {
+            0% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+        `}
+          </style>
+          <img
+            src={asciiStar.src}
+            style={{ animation: "rotation 5s infinite linear, pulse 1.5s infinite ease-in-out" }}
+            alt="Loading"
+          />
+          <h3>*dial up noises*</h3>
+        </div>
       </div>
     );
   }
@@ -73,7 +117,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
                   Ship to Seam
                 </button>
               }
-              style={{ height: "100%" }}
+              style={{ height: "100vh" }}
             />
           </SandpackLayout>
         </SandpackProvider>
