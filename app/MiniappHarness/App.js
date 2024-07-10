@@ -15,7 +15,8 @@ export default function App() {
     const appInstance = new NewApp(model);
     appInstance.model = model;
     const handleDone = (data) => {
-      setModel(model => ({ ...model, data }));
+      let updatedModel = model.data = data;
+      setModel(updatedModel);
       setStep("previewPost");
     };
 

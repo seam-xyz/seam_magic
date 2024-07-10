@@ -58,6 +58,9 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
             "/NewApp.tsx": response!,
             "/App.js": App,
           }}
+          dependencies={{
+
+          }}
           options={{
             autoReload: true,
             activeFile: "/NewApp.tsx"
@@ -66,7 +69,14 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit, in
         >
           <SandpackLayout style={{ display: "flex", height: '100%' }}>
             <SandpackCodeEditor showLineNumbers showTabs={false} style={{ height: "100%" }} />
-            <SandpackPreview style={{ height: "100%" }} />
+            <SandpackPreview 
+            showOpenInCodeSandbox={false} 
+            actionsChildren={
+              <button onClick={() => window.open("https://github.com/seam-xyz/Miniapp-Builder")}>
+                Ship to Seam
+              </button>
+            }
+            />
           </SandpackLayout>
         </SandpackProvider>
       </div>
