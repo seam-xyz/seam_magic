@@ -1,3 +1,5 @@
+export const App = `
+import { useState } from 'react';
 import NewApp from "./NewApp";
 
 export default function App() {
@@ -9,9 +11,9 @@ export default function App() {
   };
   const [model, setModel] = useState(initialModel);
 
-
   const editBlockStep = () => {
     const appInstance = new NewApp(model);
+    appInstance.model = model;
     const handleDone = (data) => {
       setModel(model => ({ ...model, data }));
       setStep("previewPost");
@@ -34,6 +36,7 @@ export default function App() {
 
   const previewBlockStep = () => {
     const appInstance = new NewApp(model);
+    appInstance.model = model;
 
     return (
       <div
@@ -62,8 +65,9 @@ export default function App() {
   };
 
   return (
-    <div className={`flex flex-col overflow-y-scroll justify-between h-full ${classes.noScrollBar}`}>
+    <div>
       {renderContent()}
     </div>
   )
 }
+`;
