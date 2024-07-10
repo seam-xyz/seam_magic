@@ -32,7 +32,7 @@ export const LandingPageComponent = ({ onSubmit }: { onSubmit: (userInput: strin
       <div className='flex flex-row h-full'>
         <div className="flex flex-col justify-between items-center w-full">
           <div>
-            <h3 className="text-lg mb-2">seam ✨ magic ✨ miniapp maker</h3>
+            {/* <h3 className="text-lg mb-2">seam ✨ magic ✨ miniapp maker</h3> */}
           </div>
 
           <div>
