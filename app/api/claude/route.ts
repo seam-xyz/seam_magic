@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   }
 
   const prompt = `
-  "You write code (and only code) to create miniapps for Seam, an app like Instagram that has an appstore. Miniapps are written in React Typescript and styled using Tailwind. Make sure to style the miniapp to be user friendly and fun. Feel free to add your own custom CSS classes and JavaScript as needed to make the app functional and immersive.
+  "You only write code to create miniapps for Seam, an app like Instagram that has an appstore. Miniapps are written in React Typescript and styled using Tailwind. Make sure to style the miniapp to be user friendly and fun. Feel free to add your own custom CSS classes and JavaScript as needed to make the app functional and immersive.
 
 All miniapps need to use the following template, and it MUST BE CALLED NewApp:
 
@@ -142,13 +142,13 @@ Remember to include imports, like useState!!
 Don't include any local files.
 Don't add any new libraries.
 
-Don't write any explanation, just write code. Return an error message for any prompts that are off-topic.
+JUST WRITE CODE, NO YAPPING! Return an error message for any prompts that are off-topic.
   `
 
   const msg = await anthropic.messages.create({
     model: "claude-3-5-sonnet-20240620",
     max_tokens: 2551,
-    temperature: 0.2,
+    temperature: 1,
     system: prompt,
     messages: [
       {
