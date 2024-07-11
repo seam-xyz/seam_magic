@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import logo from './assets/dark_single_logo.png';
 import appstore from './assets/appstore.svg';
 import './LandingPage.css';
+import { sendGAEvent } from '@next/third-parties/google'
 
 export const LandingPageComponent = ({ onSubmit }: { onSubmit: (userInput: string) => void }) => {
   const [input, setInput] = useState('');
@@ -61,7 +62,7 @@ export const LandingPageComponent = ({ onSubmit }: { onSubmit: (userInput: strin
             <p className="mt-4 text-gray-500">
               Learn more about miniapps at <a href="https://getseam.xyz" className="text-purple-600">getseam.xyz</a>
             </p>
-            <button className="mt-2">
+            <button className="mt-2" onClick={() => {sendGAEvent({ event: 'appstore_tapped' })}}>
               <a href="https://apps.apple.com/us/app/seam-social/id6473547569">
                 <img src={appstore.src} alt="Download on the App Store" />
               </a>

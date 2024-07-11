@@ -6,12 +6,14 @@ import logo from './assets/dark_single_logo.png';
 import asciiStar from './assets/ascii-seam-logo-2.svg';
 import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout } from "@codesandbox/sandpack-react";
 import { LandingPageComponent } from './LandingPageComponent';
+import { sendGAEvent } from '@next/third-parties/google'
 
 export default function Home() {
   const [blockBuilding, setBlockBuilding] = useState(false);
   const [response, setResponse] = useState(null);
 
   const handleSubmit = async (userInput: string) => {
+    sendGAEvent({ event: 'miniapp_created', value: userInput })
     setBlockBuilding(true);
     const response = await fetch(`/api/claude?userInput=${encodeURIComponent(userInput)}`);
     const data = await response.json();
