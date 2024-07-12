@@ -13,7 +13,7 @@ export default function Home() {
   const [response, setResponse] = useState(null);
 
   const handleSubmit = async (userInput: string) => {
-    sendGAEvent({ event: 'miniapp_created', value: userInput })
+    sendGAEvent('event', 'miniapp_created', { value: userInput })
     setBlockBuilding(true);
     const response = await fetch(`/api/claude?userInput=${encodeURIComponent(userInput)}`);
     const data = await response.json();
