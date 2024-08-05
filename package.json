@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.24.3",
+    "@ai-sdk/anthropic": "^0.0.35",
     "@codesandbox/sandpack-react": "^2.17.0",
     "@next/third-parties": "^14.2.5",
+    "ai": "^3.3.0",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/html-webpack-plugin": "^3.2.9",

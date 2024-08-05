@@ -1,17 +1,19 @@
 export const dynamic = 'force-dynamic'; // static by default, unless reading the request
-import Anthropic from "@anthropic-ai/sdk";
+import { createAnthropic } from '@ai-sdk/anthropic';
+import { streamText } from 'ai';
 
-export async function GET(request: Request) {
-  const anthropic = new Anthropic({
+export async function POST(req: Request, res: Response) {
+  console.log("hi, the server is being called")
+  const anthropic = createAnthropic({
     apiKey: process.env["REACT_APP_ANTHROPIC_API_KEY"]
   });
 
-  const userInput = new URL(request.url).searchParams.get("userInput");
-  if (!userInput) {
+  const { prompt }: { prompt: string } = await req.json();
+  if (!prompt) {
     return new Response("Missing userInput query parameter", { status: 400 });
   }
 
-  const prompt = `
+  const system = `
   You write code (and only code) to create miniapps for Seam, an app like Instagram that has an appstore. Miniapps are written in React Typescript and styled using Tailwind.
 
 All miniapps need to use the following template, and it MUST BE CALLED NewApp:
@@ -61,22 +63,23 @@ Don't add any new libraries.
 JUST WRITE CODE, NO YAPPING! Return an error message for any prompts that are off-topic.
   `
 
-  const msg = await anthropic.messages.create({
-    model: "claude-3-5-sonnet-20240620",
-    max_tokens: 2551,
+  const result = await streamText({
+    model: anthropic("claude-3-5-sonnet-20240620"),
+    //max_tokens: 2551,
     temperature: 1,
-    system: prompt,
+    system: system,
     messages: [
       {
         "role": "user",
         "content": [
           {
             "type": "text",
-            "text": "create a miniapp from this user input: " + userInput
+            "text": "create a miniapp from this user input: " + prompt
           }
         ]
       }
     ]
   });
-  return new Response(JSON.stringify(msg))
+
+  return result.toDataStreamResponse();
 }

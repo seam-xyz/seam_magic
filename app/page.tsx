@@ -7,24 +7,29 @@ import asciiStar from './assets/ascii-seam-logo-2.svg';
 import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout } from "@codesandbox/sandpack-react";
 import { LandingPageComponent } from './LandingPageComponent';
 import { sendGAEvent } from '@next/third-parties/google'
+import { useCompletion } from 'ai/react';
 
 export default function Home() {
   const [blockBuilding, setBlockBuilding] = useState(false);
   const [response, setResponse] = useState(null);
+  const { completion, complete } = useCompletion({
+    api: '/api/claude',
+  });
 
   const handleSubmit = async (userInput: string) => {
     sendGAEvent('event', 'miniapp_created', { value: userInput })
     setBlockBuilding(true);
-    const response = await fetch(`/api/claude?userInput=${encodeURIComponent(userInput)}`);
-    const data = await response.json();
-
-    setResponse(data.content[0].text);
+    await complete(userInput);
+    //const response = await fetch(`/api/claude?userInput=${encodeURIComponent(userInput)}`);
+    //const data = await response.json();
+    //setResponse(data.content[0].text);
   };
 
   const isLoading = blockBuilding && !response;
-
+  console.log(completion)
   return (
     <div className="min-h-screen">
+      <div>{completion}</div>
       <AppLoader isLoading={isLoading} response={response} onSubmit={handleSubmit} />
     </div>
   );
