@@ -1,6 +1,6 @@
 export const App = `
 import { useState } from 'react';
-import NewApp from "./NewApp";
+import { NewAppFeedComponent, NewAppComposerComponent } from "./NewApp";
 
 export default function App() {
   const [step, setStep] = useState("editBlock");
@@ -12,9 +12,7 @@ export default function App() {
   const [model, setModel] = useState(initialModel);
 
   const editBlockStep = () => {
-    const appInstance = new NewApp(model);
-    appInstance.model = model;
-    const handleDone = (data) => {
+    const done = (data) => {
       let updatedModel = model.data = data;
       setModel(updatedModel);
       setStep("previewPost");
@@ -30,15 +28,12 @@ export default function App() {
           height: '100%',
         }}
       >
-        {appInstance.renderEditModal(handleDone)};
+        <NewAppComposerComponent model={model} done={done} />
       </div>
     );
   };
 
   const previewBlockStep = () => {
-    const appInstance = new NewApp(model);
-    appInstance.model = model;
-
     return (
       <div
         style={{
@@ -49,7 +44,7 @@ export default function App() {
           height: '100%',
         }}
       >
-        {appInstance.render()}
+      <NewAppFeedComponent model={model} />
       </div>
     );
   }
