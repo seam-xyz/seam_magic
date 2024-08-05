@@ -3,7 +3,6 @@ import { createAnthropic } from '@ai-sdk/anthropic';
 import { streamText } from 'ai';
 
 export async function POST(req: Request, res: Response) {
-  console.log("hi, the server is being called")
   const anthropic = createAnthropic({
     apiKey: process.env["REACT_APP_ANTHROPIC_API_KEY"]
   });

@@ -1,47 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { App } from './MiniappHarness/App';
 import logo from './assets/dark_single_logo.png';
 import asciiStar from './assets/ascii-seam-logo-2.svg';
-import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout } from "@codesandbox/sandpack-react";
+import { SandpackProvider, SandpackCodeEditor, SandpackPreview, SandpackLayout, useSandpack, SandpackCodeViewer } from "@codesandbox/sandpack-react";
 import { LandingPageComponent } from './LandingPageComponent';
 import { sendGAEvent } from '@next/third-parties/google'
 import { useCompletion } from 'ai/react';
 
 export default function Home() {
   const [blockBuilding, setBlockBuilding] = useState(false);
-  const [response, setResponse] = useState(null);
-  const { completion, complete } = useCompletion({
+  const [isCodeStreamingDone, setIsCodeStreamingDone] = useState(false);
+  const { completion: streamedCode, complete } = useCompletion({
     api: '/api/claude',
+    onResponse: (response) => {
+      setBlockBuilding(false);
+    },
+    onFinish: () => {
+      setIsCodeStreamingDone(true);
+    }
   });
 
   const handleSubmit = async (userInput: string) => {
     sendGAEvent('event', 'miniapp_created', { value: userInput })
     setBlockBuilding(true);
     await complete(userInput);
-    //const response = await fetch(`/api/claude?userInput=${encodeURIComponent(userInput)}`);
-    //const data = await response.json();
-    //setResponse(data.content[0].text);
   };
 
-  const isLoading = blockBuilding && !response;
-  console.log(completion)
+  const isLoading = blockBuilding && streamedCode === ""
   return (
     <div className="min-h-screen">
-      <div>{completion}</div>
-      <AppLoader isLoading={isLoading} response={response} onSubmit={handleSubmit} />
+      <AppLoader isLoading={isLoading} streamedCode={streamedCode} isCodeStreamingDone={isCodeStreamingDone} onSubmit={handleSubmit} />
     </div>
   );
 }
 
 interface AppLoaderProps {
   isLoading: boolean;
-  response: any;
+  streamedCode: any;
+  isCodeStreamingDone: boolean;
   onSubmit: (userInput: string) => void;
 }
 
-const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) => {
+const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, streamedCode, isCodeStreamingDone, onSubmit }) => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center">
@@ -93,7 +95,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
     );
   }
 
-  if (response !== null) {
+  if (streamedCode !== "") {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '64px', padding: 4 }}>
@@ -103,7 +105,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
           template="react"
           theme="auto"
           files={{
-            "/NewApp.tsx": response!,
+            "/NewApp.tsx": streamedCode,
             "/App.js": App,
           }}
           options={{
@@ -120,7 +122,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
         >
           <SandpackLayout style={{ display: "flex", height: '100%' }}>
             <SandpackCodeEditor showLineNumbers showTabs={false} style={{ height: "100%" }} />
-            <SandpackPreview
+            {isCodeStreamingDone && <SandpackPreview
               showOpenInCodeSandbox={false}
               actionsChildren={
                 <button onClick={() => window.open("https://github.com/seam-xyz/Miniapp-Builder")}>
@@ -128,7 +130,7 @@ const AppLoader: React.FC<AppLoaderProps> = ({ isLoading, response, onSubmit }) 
                 </button>
               }
               style={{ height: `calc(100vh - 64px)` }}
-            />
+            />}
           </SandpackLayout>
         </SandpackProvider>
       </div>
