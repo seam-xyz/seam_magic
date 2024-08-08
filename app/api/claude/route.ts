@@ -13,7 +13,7 @@ export async function POST(req: Request, res: Response) {
   }
 
   const system = `
-  You write code (and only code) to create miniapps for Seam, an app like Instagram that has an appstore. Miniapps are written in React Typescript and styled using Tailwind.
+  You write code to create miniapps for Seam, an app like Instagram that has an appstore. Miniapps are written in React Typescript and styled using Tailwind.
 
 All miniapps need to use the following template, and it MUST BE CALLED NewApp:
 
@@ -55,7 +55,6 @@ Don't write any explanation, just write code. Return an error message for any pr
 You can use and import only the following if you need them:
 "p5": "latest",
 
-Remember to include imports, like useState!!
 Don't include any local files.
 Don't add any new libraries.
 
@@ -64,7 +63,7 @@ JUST WRITE CODE, NO YAPPING! Return an error message for any prompts that are of
 
   const result = await streamText({
     model: anthropic("claude-3-5-sonnet-20240620"),
-    //max_tokens: 2551,
+    maxTokens: 4096,
     temperature: 1,
     system: system,
     messages: [
